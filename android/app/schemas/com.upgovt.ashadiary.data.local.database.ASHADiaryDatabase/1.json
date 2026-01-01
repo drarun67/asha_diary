@@ -1,0 +1,2479 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "97a4e64fae9fabf9245ab8752e590e9e",
+    "entities": [
+      {
+        "tableName": "users",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `username` TEXT NOT NULL, `password_hash` TEXT NOT NULL, `full_name` TEXT NOT NULL, `phone_number` TEXT NOT NULL, `role_id` INTEGER NOT NULL, `offline_token` TEXT NOT NULL, `worker_code` TEXT NOT NULL, `is_active` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `is_synced` INTEGER NOT NULL, `last_synced_at` INTEGER, `server_id` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "username",
+            "columnName": "username",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "password_hash",
+            "columnName": "password_hash",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "full_name",
+            "columnName": "full_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "phone_number",
+            "columnName": "phone_number",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "role_id",
+            "columnName": "role_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "offline_token",
+            "columnName": "offline_token",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "worker_code",
+            "columnName": "worker_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "is_active",
+            "columnName": "is_active",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "created_at",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updated_at",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "is_synced",
+            "columnName": "is_synced",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "last_synced_at",
+            "columnName": "last_synced_at",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "server_id",
+            "columnName": "server_id",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_users_username",
+            "unique": true,
+            "columnNames": [
+              "username"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_users_username` ON `${TABLE_NAME}` (`username`)"
+          },
+          {
+            "name": "index_users_phone_number",
+            "unique": true,
+            "columnNames": [
+              "phone_number"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_users_phone_number` ON `${TABLE_NAME}` (`phone_number`)"
+          },
+          {
+            "name": "index_users_role_id",
+            "unique": false,
+            "columnNames": [
+              "role_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_users_role_id` ON `${TABLE_NAME}` (`role_id`)"
+          },
+          {
+            "name": "index_users_is_active",
+            "unique": false,
+            "columnNames": [
+              "is_active"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_users_is_active` ON `${TABLE_NAME}` (`is_active`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "roles",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name_hindi` TEXT NOT NULL, `name_english` TEXT NOT NULL, `authority_level` INTEGER NOT NULL, `can_edit_beneficiary` INTEGER NOT NULL, `can_approve_edits` INTEGER NOT NULL, `can_merge_duplicates` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name_hindi",
+            "columnName": "name_hindi",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name_english",
+            "columnName": "name_english",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "authority_level",
+            "columnName": "authority_level",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "can_edit_beneficiary",
+            "columnName": "can_edit_beneficiary",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "can_approve_edits",
+            "columnName": "can_approve_edits",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "can_merge_duplicates",
+            "columnName": "can_merge_duplicates",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "created_at",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "villages",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `state_code` TEXT NOT NULL, `district_code` TEXT NOT NULL, `block_code` TEXT NOT NULL, `village_code` TEXT NOT NULL, `village_name_hindi` TEXT NOT NULL, `block_name_hindi` TEXT NOT NULL, `district_name_hindi` TEXT NOT NULL, `state_name_hindi` TEXT NOT NULL, `village_name_english` TEXT NOT NULL, `block_name_english` TEXT NOT NULL, `district_name_english` TEXT NOT NULL, `state_name_english` TEXT NOT NULL, `is_active` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `is_synced` INTEGER NOT NULL, `last_synced_at` INTEGER, `server_id` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "state_code",
+            "columnName": "state_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "district_code",
+            "columnName": "district_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "block_code",
+            "columnName": "block_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "village_code",
+            "columnName": "village_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "village_name_hindi",
+            "columnName": "village_name_hindi",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "block_name_hindi",
+            "columnName": "block_name_hindi",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "district_name_hindi",
+            "columnName": "district_name_hindi",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "state_name_hindi",
+            "columnName": "state_name_hindi",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "village_name_english",
+            "columnName": "village_name_english",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "block_name_english",
+            "columnName": "block_name_english",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "district_name_english",
+            "columnName": "district_name_english",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "state_name_english",
+            "columnName": "state_name_english",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "is_active",
+            "columnName": "is_active",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "created_at",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updated_at",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "is_synced",
+            "columnName": "is_synced",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "last_synced_at",
+            "columnName": "last_synced_at",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "server_id",
+            "columnName": "server_id",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_villages_state_code_district_code_block_code_village_code",
+            "unique": true,
+            "columnNames": [
+              "state_code",
+              "district_code",
+              "block_code",
+              "village_code"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_villages_state_code_district_code_block_code_village_code` ON `${TABLE_NAME}` (`state_code`, `district_code`, `block_code`, `village_code`)"
+          },
+          {
+            "name": "index_villages_block_code",
+            "unique": false,
+            "columnNames": [
+              "block_code"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_villages_block_code` ON `${TABLE_NAME}` (`block_code`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "user_area_mappings",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `user_id` TEXT NOT NULL, `village_id` TEXT NOT NULL, `assigned_by_user_id` TEXT NOT NULL, `is_active` INTEGER NOT NULL, `assigned_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `is_synced` INTEGER NOT NULL, `last_synced_at` INTEGER, `server_id` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`user_id`) REFERENCES `users`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`village_id`) REFERENCES `villages`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "user_id",
+            "columnName": "user_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "village_id",
+            "columnName": "village_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "assigned_by_user_id",
+            "columnName": "assigned_by_user_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "is_active",
+            "columnName": "is_active",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "assigned_at",
+            "columnName": "assigned_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updated_at",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "is_synced",
+            "columnName": "is_synced",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "last_synced_at",
+            "columnName": "last_synced_at",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "server_id",
+            "columnName": "server_id",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_user_area_mappings_user_id",
+            "unique": false,
+            "columnNames": [
+              "user_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_user_area_mappings_user_id` ON `${TABLE_NAME}` (`user_id`)"
+          },
+          {
+            "name": "index_user_area_mappings_village_id",
+            "unique": false,
+            "columnNames": [
+              "village_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_user_area_mappings_village_id` ON `${TABLE_NAME}` (`village_id`)"
+          },
+          {
+            "name": "index_user_area_mappings_user_id_village_id",
+            "unique": true,
+            "columnNames": [
+              "user_id",
+              "village_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_user_area_mappings_user_id_village_id` ON `${TABLE_NAME}` (`user_id`, `village_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "users",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "user_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "villages",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "village_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "beneficiaries",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `beneficiary_id` TEXT NOT NULL, `name_hindi` TEXT NOT NULL, `father_husband_name_hindi` TEXT NOT NULL, `gender` TEXT NOT NULL, `date_of_birth` INTEGER NOT NULL, `age_years` INTEGER NOT NULL, `beneficiary_type` TEXT NOT NULL, `village_id` TEXT NOT NULL, `address_hindi` TEXT NOT NULL, `mobile_number` TEXT, `registered_by_user_id` TEXT NOT NULL, `registration_date` INTEGER NOT NULL, `registration_gps_lat` REAL NOT NULL, `registration_gps_lng` REAL NOT NULL, `is_active` INTEGER NOT NULL, `is_duplicate_flagged` INTEGER NOT NULL, `duplicate_of_beneficiary_id` TEXT, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `last_modified_by_user_id` TEXT NOT NULL, `is_synced` INTEGER NOT NULL, `last_synced_at` INTEGER, `server_id` TEXT, `last_modified_by_role_id` INTEGER NOT NULL, `sync_version` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`village_id`) REFERENCES `villages`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT , FOREIGN KEY(`registered_by_user_id`) REFERENCES `users`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "beneficiary_id",
+            "columnName": "beneficiary_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name_hindi",
+            "columnName": "name_hindi",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "father_husband_name_hindi",
+            "columnName": "father_husband_name_hindi",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gender",
+            "columnName": "gender",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date_of_birth",
+            "columnName": "date_of_birth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "age_years",
+            "columnName": "age_years",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "beneficiary_type",
+            "columnName": "beneficiary_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "village_id",
+            "columnName": "village_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "address_hindi",
+            "columnName": "address_hindi",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mobile_number",
+            "columnName": "mobile_number",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "registered_by_user_id",
+            "columnName": "registered_by_user_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "registration_date",
+            "columnName": "registration_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "registration_gps_lat",
+            "columnName": "registration_gps_lat",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "registration_gps_lng",
+            "columnName": "registration_gps_lng",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "is_active",
+            "columnName": "is_active",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "is_duplicate_flagged",
+            "columnName": "is_duplicate_flagged",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "duplicate_of_beneficiary_id",
+            "columnName": "duplicate_of_beneficiary_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "created_at",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updated_at",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "last_modified_by_user_id",
+            "columnName": "last_modified_by_user_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "is_synced",
+            "columnName": "is_synced",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "last_synced_at",
+            "columnName": "last_synced_at",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "server_id",
+            "columnName": "server_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "last_modified_by_role_id",
+            "columnName": "last_modified_by_role_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sync_version",
+            "columnName": "sync_version",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_beneficiaries_beneficiary_id",
+            "unique": true,
+            "columnNames": [
+              "beneficiary_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_beneficiaries_beneficiary_id` ON `${TABLE_NAME}` (`beneficiary_id`)"
+          },
+          {
+            "name": "index_beneficiaries_village_id",
+            "unique": false,
+            "columnNames": [
+              "village_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_beneficiaries_village_id` ON `${TABLE_NAME}` (`village_id`)"
+          },
+          {
+            "name": "index_beneficiaries_registered_by_user_id",
+            "unique": false,
+            "columnNames": [
+              "registered_by_user_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_beneficiaries_registered_by_user_id` ON `${TABLE_NAME}` (`registered_by_user_id`)"
+          },
+          {
+            "name": "index_beneficiaries_name_hindi_village_id",
+            "unique": false,
+            "columnNames": [
+              "name_hindi",
+              "village_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_beneficiaries_name_hindi_village_id` ON `${TABLE_NAME}` (`name_hindi`, `village_id`)"
+          },
+          {
+            "name": "index_beneficiaries_is_active",
+            "unique": false,
+            "columnNames": [
+              "is_active"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_beneficiaries_is_active` ON `${TABLE_NAME}` (`is_active`)"
+          },
+          {
+            "name": "index_beneficiaries_is_duplicate_flagged",
+            "unique": false,
+            "columnNames": [
+              "is_duplicate_flagged"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_beneficiaries_is_duplicate_flagged` ON `${TABLE_NAME}` (`is_duplicate_flagged`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "villages",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "village_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "users",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "registered_by_user_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "anc_visits",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `beneficiary_id` TEXT NOT NULL, `visit_number` INTEGER NOT NULL, `visit_date` INTEGER NOT NULL, `weight_kg` REAL, `blood_pressure_systolic` INTEGER, `blood_pressure_diastolic` INTEGER, `hemoglobin_gm_dl` REAL, `risk_factors_hindi` TEXT, `complications_hindi` TEXT, `ifa_tablets_given` INTEGER, `calcium_tablets_given` INTEGER, `other_medicines_hindi` TEXT, `advice_notes_hindi` TEXT, `recorded_by_user_id` TEXT NOT NULL, `recorded_at` INTEGER NOT NULL, `gps_lat` REAL NOT NULL, `gps_lng` REAL NOT NULL, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `is_synced` INTEGER NOT NULL, `last_synced_at` INTEGER, `server_id` TEXT, `last_modified_by_role_id` INTEGER NOT NULL, `sync_version` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`beneficiary_id`) REFERENCES `beneficiaries`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`recorded_by_user_id`) REFERENCES `users`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "beneficiary_id",
+            "columnName": "beneficiary_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "visit_number",
+            "columnName": "visit_number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "visit_date",
+            "columnName": "visit_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "weight_kg",
+            "columnName": "weight_kg",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "blood_pressure_systolic",
+            "columnName": "blood_pressure_systolic",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "blood_pressure_diastolic",
+            "columnName": "blood_pressure_diastolic",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "hemoglobin_gm_dl",
+            "columnName": "hemoglobin_gm_dl",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "risk_factors_hindi",
+            "columnName": "risk_factors_hindi",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "complications_hindi",
+            "columnName": "complications_hindi",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ifa_tablets_given",
+            "columnName": "ifa_tablets_given",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "calcium_tablets_given",
+            "columnName": "calcium_tablets_given",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "other_medicines_hindi",
+            "columnName": "other_medicines_hindi",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "advice_notes_hindi",
+            "columnName": "advice_notes_hindi",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "recorded_by_user_id",
+            "columnName": "recorded_by_user_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recorded_at",
+            "columnName": "recorded_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gps_lat",
+            "columnName": "gps_lat",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gps_lng",
+            "columnName": "gps_lng",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "created_at",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updated_at",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "is_synced",
+            "columnName": "is_synced",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "last_synced_at",
+            "columnName": "last_synced_at",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "server_id",
+            "columnName": "server_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "last_modified_by_role_id",
+            "columnName": "last_modified_by_role_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sync_version",
+            "columnName": "sync_version",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_anc_visits_beneficiary_id",
+            "unique": false,
+            "columnNames": [
+              "beneficiary_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_anc_visits_beneficiary_id` ON `${TABLE_NAME}` (`beneficiary_id`)"
+          },
+          {
+            "name": "index_anc_visits_visit_date",
+            "unique": false,
+            "columnNames": [
+              "visit_date"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_anc_visits_visit_date` ON `${TABLE_NAME}` (`visit_date`)"
+          },
+          {
+            "name": "index_anc_visits_recorded_by_user_id",
+            "unique": false,
+            "columnNames": [
+              "recorded_by_user_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_anc_visits_recorded_by_user_id` ON `${TABLE_NAME}` (`recorded_by_user_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "beneficiaries",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "beneficiary_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "users",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "recorded_by_user_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "bp_visits",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `beneficiary_id` TEXT NOT NULL, `visit_date` INTEGER NOT NULL, `bp_systolic` INTEGER NOT NULL, `bp_diastolic` INTEGER NOT NULL, `pulse_rate` INTEGER, `bp_category` TEXT NOT NULL, `is_referred` INTEGER NOT NULL, `referral_facility_hindi` TEXT, `follow_up_date` INTEGER, `medications_prescribed_hindi` TEXT, `advice_notes_hindi` TEXT, `recorded_by_user_id` TEXT NOT NULL, `recorded_at` INTEGER NOT NULL, `gps_lat` REAL NOT NULL, `gps_lng` REAL NOT NULL, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `is_synced` INTEGER NOT NULL, `last_synced_at` INTEGER, `server_id` TEXT, `last_modified_by_role_id` INTEGER NOT NULL, `sync_version` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`beneficiary_id`) REFERENCES `beneficiaries`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`recorded_by_user_id`) REFERENCES `users`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "beneficiary_id",
+            "columnName": "beneficiary_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "visit_date",
+            "columnName": "visit_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bp_systolic",
+            "columnName": "bp_systolic",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bp_diastolic",
+            "columnName": "bp_diastolic",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pulse_rate",
+            "columnName": "pulse_rate",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "bp_category",
+            "columnName": "bp_category",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "is_referred",
+            "columnName": "is_referred",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "referral_facility_hindi",
+            "columnName": "referral_facility_hindi",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "follow_up_date",
+            "columnName": "follow_up_date",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "medications_prescribed_hindi",
+            "columnName": "medications_prescribed_hindi",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "advice_notes_hindi",
+            "columnName": "advice_notes_hindi",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "recorded_by_user_id",
+            "columnName": "recorded_by_user_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recorded_at",
+            "columnName": "recorded_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gps_lat",
+            "columnName": "gps_lat",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gps_lng",
+            "columnName": "gps_lng",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "created_at",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updated_at",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "is_synced",
+            "columnName": "is_synced",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "last_synced_at",
+            "columnName": "last_synced_at",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "server_id",
+            "columnName": "server_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "last_modified_by_role_id",
+            "columnName": "last_modified_by_role_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sync_version",
+            "columnName": "sync_version",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_bp_visits_beneficiary_id",
+            "unique": false,
+            "columnNames": [
+              "beneficiary_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_bp_visits_beneficiary_id` ON `${TABLE_NAME}` (`beneficiary_id`)"
+          },
+          {
+            "name": "index_bp_visits_visit_date",
+            "unique": false,
+            "columnNames": [
+              "visit_date"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_bp_visits_visit_date` ON `${TABLE_NAME}` (`visit_date`)"
+          },
+          {
+            "name": "index_bp_visits_recorded_by_user_id",
+            "unique": false,
+            "columnNames": [
+              "recorded_by_user_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_bp_visits_recorded_by_user_id` ON `${TABLE_NAME}` (`recorded_by_user_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "beneficiaries",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "beneficiary_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "users",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "recorded_by_user_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "blood_sugar_visits",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `beneficiary_id` TEXT NOT NULL, `visit_date` INTEGER NOT NULL, `test_type` TEXT NOT NULL, `blood_sugar_mg_dl` INTEGER NOT NULL, `diabetes_risk` TEXT NOT NULL, `is_referred` INTEGER NOT NULL, `referral_facility_hindi` TEXT, `follow_up_date` INTEGER, `medications_prescribed_hindi` TEXT, `diet_advice_hindi` TEXT, `exercise_advice_hindi` TEXT, `recorded_by_user_id` TEXT NOT NULL, `recorded_at` INTEGER NOT NULL, `gps_lat` REAL NOT NULL, `gps_lng` REAL NOT NULL, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `is_synced` INTEGER NOT NULL, `last_synced_at` INTEGER, `server_id` TEXT, `last_modified_by_role_id` INTEGER NOT NULL, `sync_version` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`beneficiary_id`) REFERENCES `beneficiaries`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`recorded_by_user_id`) REFERENCES `users`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "beneficiary_id",
+            "columnName": "beneficiary_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "visit_date",
+            "columnName": "visit_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "test_type",
+            "columnName": "test_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "blood_sugar_mg_dl",
+            "columnName": "blood_sugar_mg_dl",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "diabetes_risk",
+            "columnName": "diabetes_risk",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "is_referred",
+            "columnName": "is_referred",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "referral_facility_hindi",
+            "columnName": "referral_facility_hindi",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "follow_up_date",
+            "columnName": "follow_up_date",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "medications_prescribed_hindi",
+            "columnName": "medications_prescribed_hindi",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "diet_advice_hindi",
+            "columnName": "diet_advice_hindi",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "exercise_advice_hindi",
+            "columnName": "exercise_advice_hindi",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "recorded_by_user_id",
+            "columnName": "recorded_by_user_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recorded_at",
+            "columnName": "recorded_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gps_lat",
+            "columnName": "gps_lat",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gps_lng",
+            "columnName": "gps_lng",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "created_at",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updated_at",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "is_synced",
+            "columnName": "is_synced",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "last_synced_at",
+            "columnName": "last_synced_at",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "server_id",
+            "columnName": "server_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "last_modified_by_role_id",
+            "columnName": "last_modified_by_role_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sync_version",
+            "columnName": "sync_version",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_blood_sugar_visits_beneficiary_id",
+            "unique": false,
+            "columnNames": [
+              "beneficiary_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_blood_sugar_visits_beneficiary_id` ON `${TABLE_NAME}` (`beneficiary_id`)"
+          },
+          {
+            "name": "index_blood_sugar_visits_visit_date",
+            "unique": false,
+            "columnNames": [
+              "visit_date"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_blood_sugar_visits_visit_date` ON `${TABLE_NAME}` (`visit_date`)"
+          },
+          {
+            "name": "index_blood_sugar_visits_recorded_by_user_id",
+            "unique": false,
+            "columnNames": [
+              "recorded_by_user_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_blood_sugar_visits_recorded_by_user_id` ON `${TABLE_NAME}` (`recorded_by_user_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "beneficiaries",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "beneficiary_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "users",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "recorded_by_user_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "vaccination_visits",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `beneficiary_id` TEXT NOT NULL, `visit_date` INTEGER NOT NULL, `vaccine_type` TEXT NOT NULL, `vaccine_name_hindi` TEXT NOT NULL, `dose_number` INTEGER NOT NULL, `vaccine_batch_number` TEXT, `vaccine_expiry_date` INTEGER, `has_adverse_reaction` INTEGER NOT NULL, `adverse_reaction_notes_hindi` TEXT, `next_dose_due_date` INTEGER, `recorded_by_user_id` TEXT NOT NULL, `recorded_at` INTEGER NOT NULL, `gps_lat` REAL NOT NULL, `gps_lng` REAL NOT NULL, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `is_synced` INTEGER NOT NULL, `last_synced_at` INTEGER, `server_id` TEXT, `last_modified_by_role_id` INTEGER NOT NULL, `sync_version` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`beneficiary_id`) REFERENCES `beneficiaries`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`recorded_by_user_id`) REFERENCES `users`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "beneficiary_id",
+            "columnName": "beneficiary_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "visit_date",
+            "columnName": "visit_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vaccine_type",
+            "columnName": "vaccine_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vaccine_name_hindi",
+            "columnName": "vaccine_name_hindi",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dose_number",
+            "columnName": "dose_number",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vaccine_batch_number",
+            "columnName": "vaccine_batch_number",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vaccine_expiry_date",
+            "columnName": "vaccine_expiry_date",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "has_adverse_reaction",
+            "columnName": "has_adverse_reaction",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "adverse_reaction_notes_hindi",
+            "columnName": "adverse_reaction_notes_hindi",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "next_dose_due_date",
+            "columnName": "next_dose_due_date",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "recorded_by_user_id",
+            "columnName": "recorded_by_user_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recorded_at",
+            "columnName": "recorded_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gps_lat",
+            "columnName": "gps_lat",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gps_lng",
+            "columnName": "gps_lng",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "created_at",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updated_at",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "is_synced",
+            "columnName": "is_synced",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "last_synced_at",
+            "columnName": "last_synced_at",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "server_id",
+            "columnName": "server_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "last_modified_by_role_id",
+            "columnName": "last_modified_by_role_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sync_version",
+            "columnName": "sync_version",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_vaccination_visits_beneficiary_id",
+            "unique": false,
+            "columnNames": [
+              "beneficiary_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_vaccination_visits_beneficiary_id` ON `${TABLE_NAME}` (`beneficiary_id`)"
+          },
+          {
+            "name": "index_vaccination_visits_visit_date",
+            "unique": false,
+            "columnNames": [
+              "visit_date"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_vaccination_visits_visit_date` ON `${TABLE_NAME}` (`visit_date`)"
+          },
+          {
+            "name": "index_vaccination_visits_recorded_by_user_id",
+            "unique": false,
+            "columnNames": [
+              "recorded_by_user_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_vaccination_visits_recorded_by_user_id` ON `${TABLE_NAME}` (`recorded_by_user_id`)"
+          },
+          {
+            "name": "index_vaccination_visits_vaccine_type",
+            "unique": false,
+            "columnNames": [
+              "vaccine_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_vaccination_visits_vaccine_type` ON `${TABLE_NAME}` (`vaccine_type`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "beneficiaries",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "beneficiary_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "users",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "recorded_by_user_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "edit_requests",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `beneficiary_id` TEXT NOT NULL, `field_name` TEXT NOT NULL, `current_value` TEXT NOT NULL, `requested_value` TEXT NOT NULL, `reason_hindi` TEXT NOT NULL, `status` TEXT NOT NULL, `requested_by_user_id` TEXT NOT NULL, `requested_at` INTEGER NOT NULL, `request_gps_lat` REAL NOT NULL, `request_gps_lng` REAL NOT NULL, `reviewed_by_user_id` TEXT, `reviewed_at` INTEGER, `review_notes_hindi` TEXT, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `is_synced` INTEGER NOT NULL, `last_synced_at` INTEGER, `server_id` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`beneficiary_id`) REFERENCES `beneficiaries`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`requested_by_user_id`) REFERENCES `users`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT , FOREIGN KEY(`reviewed_by_user_id`) REFERENCES `users`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "beneficiary_id",
+            "columnName": "beneficiary_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "field_name",
+            "columnName": "field_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "current_value",
+            "columnName": "current_value",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "requested_value",
+            "columnName": "requested_value",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reason_hindi",
+            "columnName": "reason_hindi",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "requested_by_user_id",
+            "columnName": "requested_by_user_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "requested_at",
+            "columnName": "requested_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "request_gps_lat",
+            "columnName": "request_gps_lat",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "request_gps_lng",
+            "columnName": "request_gps_lng",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reviewed_by_user_id",
+            "columnName": "reviewed_by_user_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "reviewed_at",
+            "columnName": "reviewed_at",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "review_notes_hindi",
+            "columnName": "review_notes_hindi",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "created_at",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updated_at",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "is_synced",
+            "columnName": "is_synced",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "last_synced_at",
+            "columnName": "last_synced_at",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "server_id",
+            "columnName": "server_id",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_edit_requests_beneficiary_id",
+            "unique": false,
+            "columnNames": [
+              "beneficiary_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_edit_requests_beneficiary_id` ON `${TABLE_NAME}` (`beneficiary_id`)"
+          },
+          {
+            "name": "index_edit_requests_requested_by_user_id",
+            "unique": false,
+            "columnNames": [
+              "requested_by_user_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_edit_requests_requested_by_user_id` ON `${TABLE_NAME}` (`requested_by_user_id`)"
+          },
+          {
+            "name": "index_edit_requests_status",
+            "unique": false,
+            "columnNames": [
+              "status"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_edit_requests_status` ON `${TABLE_NAME}` (`status`)"
+          },
+          {
+            "name": "index_edit_requests_requested_at",
+            "unique": false,
+            "columnNames": [
+              "requested_at"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_edit_requests_requested_at` ON `${TABLE_NAME}` (`requested_at`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "beneficiaries",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "beneficiary_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "users",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "requested_by_user_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "users",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "reviewed_by_user_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "duplicate_flags",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `beneficiary_id_1` TEXT NOT NULL, `beneficiary_id_2` TEXT NOT NULL, `similarity_score` INTEGER NOT NULL, `name_match` INTEGER NOT NULL, `village_match` INTEGER NOT NULL, `gender_match` INTEGER NOT NULL, `age_within_range` INTEGER NOT NULL, `status` TEXT NOT NULL, `flagged_by_user_id` TEXT NOT NULL, `flagged_at` INTEGER NOT NULL, `flag_source` TEXT NOT NULL, `resolved_by_user_id` TEXT, `resolved_at` INTEGER, `resolution_action` TEXT, `resolution_notes_hindi` TEXT, `master_beneficiary_id` TEXT, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `is_synced` INTEGER NOT NULL, `last_synced_at` INTEGER, `server_id` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`beneficiary_id_1`) REFERENCES `beneficiaries`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`beneficiary_id_2`) REFERENCES `beneficiaries`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`flagged_by_user_id`) REFERENCES `users`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT , FOREIGN KEY(`resolved_by_user_id`) REFERENCES `users`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "beneficiary_id_1",
+            "columnName": "beneficiary_id_1",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "beneficiary_id_2",
+            "columnName": "beneficiary_id_2",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "similarity_score",
+            "columnName": "similarity_score",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name_match",
+            "columnName": "name_match",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "village_match",
+            "columnName": "village_match",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gender_match",
+            "columnName": "gender_match",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "age_within_range",
+            "columnName": "age_within_range",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "flagged_by_user_id",
+            "columnName": "flagged_by_user_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "flagged_at",
+            "columnName": "flagged_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "flag_source",
+            "columnName": "flag_source",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "resolved_by_user_id",
+            "columnName": "resolved_by_user_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "resolved_at",
+            "columnName": "resolved_at",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "resolution_action",
+            "columnName": "resolution_action",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "resolution_notes_hindi",
+            "columnName": "resolution_notes_hindi",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "master_beneficiary_id",
+            "columnName": "master_beneficiary_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "created_at",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updated_at",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "is_synced",
+            "columnName": "is_synced",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "last_synced_at",
+            "columnName": "last_synced_at",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "server_id",
+            "columnName": "server_id",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_duplicate_flags_beneficiary_id_1",
+            "unique": false,
+            "columnNames": [
+              "beneficiary_id_1"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_duplicate_flags_beneficiary_id_1` ON `${TABLE_NAME}` (`beneficiary_id_1`)"
+          },
+          {
+            "name": "index_duplicate_flags_beneficiary_id_2",
+            "unique": false,
+            "columnNames": [
+              "beneficiary_id_2"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_duplicate_flags_beneficiary_id_2` ON `${TABLE_NAME}` (`beneficiary_id_2`)"
+          },
+          {
+            "name": "index_duplicate_flags_beneficiary_id_1_beneficiary_id_2",
+            "unique": true,
+            "columnNames": [
+              "beneficiary_id_1",
+              "beneficiary_id_2"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_duplicate_flags_beneficiary_id_1_beneficiary_id_2` ON `${TABLE_NAME}` (`beneficiary_id_1`, `beneficiary_id_2`)"
+          },
+          {
+            "name": "index_duplicate_flags_status",
+            "unique": false,
+            "columnNames": [
+              "status"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_duplicate_flags_status` ON `${TABLE_NAME}` (`status`)"
+          },
+          {
+            "name": "index_duplicate_flags_flagged_at",
+            "unique": false,
+            "columnNames": [
+              "flagged_at"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_duplicate_flags_flagged_at` ON `${TABLE_NAME}` (`flagged_at`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "beneficiaries",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "beneficiary_id_1"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "beneficiaries",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "beneficiary_id_2"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "users",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "flagged_by_user_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "users",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "resolved_by_user_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "audit_logs",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `user_id` TEXT NOT NULL, `user_role_id` INTEGER NOT NULL, `action_type` TEXT NOT NULL, `entity_type` TEXT NOT NULL, `entity_id` TEXT NOT NULL, `field_name` TEXT, `old_value` TEXT, `new_value` TEXT, `action_description_hindi` TEXT NOT NULL, `action_timestamp` INTEGER NOT NULL, `gps_lat` REAL NOT NULL, `gps_lng` REAL NOT NULL, `gps_accuracy_meters` REAL NOT NULL, `device_id` TEXT NOT NULL, `app_version` TEXT NOT NULL, `is_synced` INTEGER NOT NULL, `last_synced_at` INTEGER, `server_id` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`user_id`) REFERENCES `users`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "user_id",
+            "columnName": "user_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "user_role_id",
+            "columnName": "user_role_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "action_type",
+            "columnName": "action_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "entity_type",
+            "columnName": "entity_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "entity_id",
+            "columnName": "entity_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "field_name",
+            "columnName": "field_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "old_value",
+            "columnName": "old_value",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "new_value",
+            "columnName": "new_value",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "action_description_hindi",
+            "columnName": "action_description_hindi",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "action_timestamp",
+            "columnName": "action_timestamp",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gps_lat",
+            "columnName": "gps_lat",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gps_lng",
+            "columnName": "gps_lng",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gps_accuracy_meters",
+            "columnName": "gps_accuracy_meters",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "device_id",
+            "columnName": "device_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "app_version",
+            "columnName": "app_version",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "is_synced",
+            "columnName": "is_synced",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "last_synced_at",
+            "columnName": "last_synced_at",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "server_id",
+            "columnName": "server_id",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_audit_logs_user_id",
+            "unique": false,
+            "columnNames": [
+              "user_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_audit_logs_user_id` ON `${TABLE_NAME}` (`user_id`)"
+          },
+          {
+            "name": "index_audit_logs_action_timestamp",
+            "unique": false,
+            "columnNames": [
+              "action_timestamp"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_audit_logs_action_timestamp` ON `${TABLE_NAME}` (`action_timestamp`)"
+          },
+          {
+            "name": "index_audit_logs_entity_type",
+            "unique": false,
+            "columnNames": [
+              "entity_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_audit_logs_entity_type` ON `${TABLE_NAME}` (`entity_type`)"
+          },
+          {
+            "name": "index_audit_logs_entity_id",
+            "unique": false,
+            "columnNames": [
+              "entity_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_audit_logs_entity_id` ON `${TABLE_NAME}` (`entity_id`)"
+          },
+          {
+            "name": "index_audit_logs_action_type",
+            "unique": false,
+            "columnNames": [
+              "action_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_audit_logs_action_type` ON `${TABLE_NAME}` (`action_type`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "users",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "user_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "biometrics_local",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `beneficiary_id` TEXT NOT NULL, `finger_position` TEXT NOT NULL, `quality_score` INTEGER NOT NULL, `iso_template` BLOB NOT NULL, `captured_by_user_id` TEXT NOT NULL, `captured_at` INTEGER NOT NULL, `device_serial_number` TEXT NOT NULL, `is_synced` INTEGER NOT NULL, `last_synced_at` INTEGER, PRIMARY KEY(`id`), FOREIGN KEY(`beneficiary_id`) REFERENCES `beneficiaries`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`captured_by_user_id`) REFERENCES `users`(`id`) ON UPDATE NO ACTION ON DELETE RESTRICT )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "beneficiary_id",
+            "columnName": "beneficiary_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "finger_position",
+            "columnName": "finger_position",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quality_score",
+            "columnName": "quality_score",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "iso_template",
+            "columnName": "iso_template",
+            "affinity": "BLOB",
+            "notNull": true
+          },
+          {
+            "fieldPath": "captured_by_user_id",
+            "columnName": "captured_by_user_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "captured_at",
+            "columnName": "captured_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "device_serial_number",
+            "columnName": "device_serial_number",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "is_synced",
+            "columnName": "is_synced",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "last_synced_at",
+            "columnName": "last_synced_at",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_biometrics_local_beneficiary_id",
+            "unique": false,
+            "columnNames": [
+              "beneficiary_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_biometrics_local_beneficiary_id` ON `${TABLE_NAME}` (`beneficiary_id`)"
+          },
+          {
+            "name": "index_biometrics_local_finger_position",
+            "unique": false,
+            "columnNames": [
+              "finger_position"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_biometrics_local_finger_position` ON `${TABLE_NAME}` (`finger_position`)"
+          },
+          {
+            "name": "index_biometrics_local_captured_at",
+            "unique": false,
+            "columnNames": [
+              "captured_at"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_biometrics_local_captured_at` ON `${TABLE_NAME}` (`captured_at`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "beneficiaries",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "beneficiary_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "users",
+            "onDelete": "RESTRICT",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "captured_by_user_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "sync_queue",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `entity_type` TEXT NOT NULL, `entity_id` TEXT NOT NULL, `operation` TEXT NOT NULL, `payload_json` TEXT NOT NULL, `priority` INTEGER NOT NULL, `sync_status` TEXT NOT NULL, `retry_count` INTEGER NOT NULL, `max_retries` INTEGER NOT NULL, `last_retry_at` INTEGER, `next_retry_at` INTEGER, `last_error_message` TEXT, `last_error_code` INTEGER, `user_role_id` INTEGER NOT NULL, `sync_version` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, `updated_at` INTEGER NOT NULL, `synced_at` INTEGER, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "entity_type",
+            "columnName": "entity_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "entity_id",
+            "columnName": "entity_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "operation",
+            "columnName": "operation",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "payload_json",
+            "columnName": "payload_json",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "priority",
+            "columnName": "priority",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sync_status",
+            "columnName": "sync_status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "retry_count",
+            "columnName": "retry_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "max_retries",
+            "columnName": "max_retries",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "last_retry_at",
+            "columnName": "last_retry_at",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "next_retry_at",
+            "columnName": "next_retry_at",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "last_error_message",
+            "columnName": "last_error_message",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "last_error_code",
+            "columnName": "last_error_code",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user_role_id",
+            "columnName": "user_role_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sync_version",
+            "columnName": "sync_version",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "created_at",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updated_at",
+            "columnName": "updated_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "synced_at",
+            "columnName": "synced_at",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_sync_queue_entity_type",
+            "unique": false,
+            "columnNames": [
+              "entity_type"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_sync_queue_entity_type` ON `${TABLE_NAME}` (`entity_type`)"
+          },
+          {
+            "name": "index_sync_queue_sync_status",
+            "unique": false,
+            "columnNames": [
+              "sync_status"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_sync_queue_sync_status` ON `${TABLE_NAME}` (`sync_status`)"
+          },
+          {
+            "name": "index_sync_queue_priority",
+            "unique": false,
+            "columnNames": [
+              "priority"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_sync_queue_priority` ON `${TABLE_NAME}` (`priority`)"
+          },
+          {
+            "name": "index_sync_queue_created_at",
+            "unique": false,
+            "columnNames": [
+              "created_at"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_sync_queue_created_at` ON `${TABLE_NAME}` (`created_at`)"
+          },
+          {
+            "name": "index_sync_queue_retry_count",
+            "unique": false,
+            "columnNames": [
+              "retry_count"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_sync_queue_retry_count` ON `${TABLE_NAME}` (`retry_count`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '97a4e64fae9fabf9245ab8752e590e9e')"
+    ]
+  }
+}
